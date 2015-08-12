@@ -5,6 +5,7 @@
 # Home page
 GET     /                           controllers.Application.index
 GET     /:o/:b/kyulobby/:i          controllers.Application.kyulobby(o:String,b:String,i:String)
+GET     /ws/:o/:b/kyulobby/:i       controllers.Connection.kyulobby(o:String,b:String,i:String)
 GET     /:o/:b/kyucaller/:i         controllers.Application.kyucaller(o:String,b:String,i:String)
 GET     /:o/:b/kyuscreen/:i         controllers.Application.kyuscreen(o:String,b:String,i:String)
 

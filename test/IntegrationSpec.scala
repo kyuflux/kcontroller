@@ -13,6 +13,10 @@ import play.api.test.Helpers._
 class IntegrationSpec extends Specification {
 
   "Application" should {
-
+	"go to kyulobby's page" in new WithBrowser{
+	browser.goTo(s"http://localhost:$port/o/b/kyulobby/1")
+	browser.pageSource must contain("kyulobby")
+	}
+	
   }
 }
