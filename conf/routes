@@ -6,8 +6,9 @@
 GET     /                           controllers.Application.index
 GET     /:o/:b/kyulobby/:i          controllers.Application.kyulobby(o:String,b:String,i:String)
 GET     /ws/:o/:b/kyulobby/:i       controllers.Connection.kyulobby(o:String,b:String,i:String)
+GET     /ws/:o/:b/kyucaller/:i      controllers.Connection.kyucaller(o:String,b:String,i:String)
 GET     /:o/:b/kyucaller/:i         controllers.Application.kyucaller(o:String,b:String,i:String)
 GET     /:o/:b/kyuscreen/:i         controllers.Application.kyuscreen(o:String,b:String,i:String)
-
+POST	/:o/:b			    controllers.Application.kyuscreenWS(o:String, b:String)
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
