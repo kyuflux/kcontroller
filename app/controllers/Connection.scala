@@ -30,9 +30,16 @@ class Connection extends Controller {
 	
 	val ref = Flow[KMessage].to(end).runWith(actorSrc)
 	
+	
+	def kyuscreen(org:String, branch:String, screenId:String) = 
+		WebSocket.acceptWithActor[JsValue, JsValue] { request => out =>
+		val channel = s"$org:$branch"
+		ScreenActor.props(out,redis,channel)
+	}
+
 	def kyulobby(org:String, branch:String, lobbyId:String) = 
 		WebSocket.acceptWithActor[JsValue, JsValue] { request => out =>
-	  	val partialUrl = s"$klogic/$org/$branch"
+		val partialUrl = s"$klogic/$org/$branch"
 		LobbyActor.props(out,ref,partialUrl)
 	}
 	
@@ -41,6 +48,23 @@ class Connection extends Controller {
 	  	val partialUrl = s"$klogic/$org/$branch"
 	  	CallerActor.props(out,ref,partialUrl)
 	}
+	
+	def kyulobbyWS(org:String, branch:String, lobbyId:String) = Action {
+		Results.Accepted
+	}
+	def kyucallerWS(org:String, branch:String, callerId:String) = Action {
+		Results.Accepted
+	}
+	def kyuscreenWS(org:String, branch:String) = Action { implicit request =>
+		request.body.asJson match{
+			case Some(obj) => {
+				redis.publish[String](s"$org:$branch",Json.stringify(obj))
+				}
+			case None => ()
+		}	
+		Results.Accepted
+	}
+
 }
 
 case class KMessage(method:String, url:String,data:JsValue)

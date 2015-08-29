@@ -15,6 +15,7 @@ class LobbyActor(out: ActorRef, src:ActorRef, url:String) extends Actor with Act
 			(msg \ "to").asOpt[String].foreach { to =>
 				(msg \ "customer").asOpt[JsValue].foreach{
 				   customer => src ! KMessage("POST",s"$url/$to",customer)
+				   out ! Json.parse("{\"msg\": \"queued\"}")
 				} 
 			}
 		} 

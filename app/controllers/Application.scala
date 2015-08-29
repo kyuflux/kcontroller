@@ -20,17 +20,4 @@ class Application extends Controller {
 		Ok(views.html.index("kyuscreen"))
 	}
 
-	def kyulobbyWS(org:String, branch:String, lobbyId:String) = Action {
-		Results.Accepted
-	}
-	def kyucallerWS(org:String, branch:String, callerId:String) = Action {
-		Results.Accepted
-	}
-	def kyuscreenWS(org:String, branch:String) = Action { implicit request =>
-		request.body.asJson match{
-			case Some(obj) => println(obj)
-			case None => ()
-		}	
-		Results.Accepted
-	}
 }
