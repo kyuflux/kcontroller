@@ -14,7 +14,7 @@ class ConnectionSpec extends Specification {
 
   "Connection" should {
 	"send through websocket" in new WithBrowser{
-	browser.goTo(s"ws://localhost:$port/ws/o/b/kyulobby/1")
+	browser.goTo(s"http://localhost:$port/o/b/kyulobby/1")
 	browser.pageSource must contain("kyulobby")
 	}
 	
